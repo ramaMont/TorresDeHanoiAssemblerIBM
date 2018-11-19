@@ -1,0 +1,440 @@
+16:34:06 TP        MZ390 START USING z390 V1.5.06 ON J2SE 10 06/08/18
+AZ390I Copyright 2011 Automated Software Tools Corporation
+AZ390I z390 is licensed under GNU General Public License
+AZ390I program = C:\Users\Rama\Desktop\Organizacion del computador\TP ENTREGA FINAL\TP
+AZ390I options = sysmac(C:\PROGRA~2\AUTOMA~1\z390\mac+.) 
+  syscpy(C:\PROGRA~2\AUTOMA~1\z390\mac+.)
+External Symbol Definitions
+ ESD=0001 LOC=00000000 LEN=00000660 TYPE=CST NAME=TP
+Assembler Listing
+000000                                        (1/1)1 TP     SUBENTRY BASES=(3)
+000000                                       (2/78)2+TP       CSECT 
+000000 90ECD00C                             (2/168)3+         STM   14,12,12(13)
+000004 45FF0068                             (2/169)4+         BAL   15,104(15)
+000008 0000000000000000                     (2/170)5+         DC    18F'0'
+000050 E3D7404040404040                     (2/171)6+         DC    CL8'TP'
+000058 F0F661F0F861F1F8                     (2/172)7+         DC    CL8'06/08/18'
+000060 F1F64BF3F4404040                     (2/173)8+         DC    CL8'16.34'
+000068 50FD0008                             (2/174)9+         ST    15,8(13)
+00006C 50DF0004                            (2/175)10+         ST    13,4(15)
+000070 18DF                                (2/176)11+         LR    13,15
+000072 183D                                 (3/28)13+         LR    3,13
+000074                                     (2/186)15+         USING TP+8,3
+LISTUSE TP       ESD=0001 LOC=00000008 LEN=01000 REG=3 OFF=00000 LAB=
+000074                                       (1/2)17   WTOR 'INGRESE EL NUMERO DE DISCOS (ENTRE 3 Y 10)',FULWORD,,WAITECB
+000074 4510309E                0000A6       (4/68)19+         BAL   1,*+(WTOR#0003_EOT-*+1)/2*2
+000078 002E0000C9D5C7D9                     (4/69)20+         DC    AL2(WTOR#0003_EOT-*,0),C'INGRESE EL NUMERO DE DISCOS (ENTRE 3 Y 10)'
+0000A6                  000000A6            (4/70)22+WTOR#0003_EOT     EQU *
+0000A6 410034B0                0004B8       (4/72)23+         LA    0,FULWORD
+0000AA 41E00004                             (4/90)24+         LA    14,L'FULWORD
+0000AE 41F03608                000610       (4/93)25+         LA    15,WAITECB
+0000B2 0AA0                                 (4/98)26+         SVC   160 WTOR R1=MSG,R0=REPLY,R14=LEN,R15=ECB
+0000B4                                       (1/3)28   WAIT  ECB=WAITECB
+0000B4 1B00                                 (5/37)29+         SR    0,0
+0000B6 41103608                000610       (5/43)30+         LA    1,WAITECB
+0000BA 0A01                                 (5/62)31+         SVC   1 (R0=0,R1=A(ECB) OR (R0=NUM,R1=ECBLIST)
+0000BC 45A030F4                0000FC        (1/4)33   BAL  10,VALNUM
+0000C0 45A031BC                0001C4        (1/5)34         BAL     10,CARGMAT
+0000C4 45C0331C                000324        (1/6)35         BAL     12,REPRE
+0000C8 45A0336C                000374        (1/7)36   BAL  10,RESOLUC
+0000CC                                       (1/8)37 FIN   WTO  'PROGRAMA FINALIZADO'
+0000CC                                      (6/35)38+FIN      DS    0H
+0000CC A715000E                0000E8       (6/49)39+         BRAS  1,*+(WTO#0005_EOT-*+1)/2*2
+0000D0 00170000D7D9D6C7                     (6/50)40+         DC    AL2(WTO#0005_EOT-*,0),C'PROGRAMA FINALIZADO'
+0000E7                  000000E7            (6/51)41+WTO#0005_EOT     EQU *
+0000E8 0A23                                 (6/52)42+         SVC   35
+0000EA                                       (1/9)44   SUBEXIT 
+0000EA 41F00000                             (7/33)45+         LA    15,0
+0000EE 58D0D004                             (7/50)46+         L     13,4(,13)
+0000F2 58E0D00C                             (7/51)47+         L     14,12(,13)
+0000F6 982CD01C                             (7/52)48+         LM    2,12,28(13)
+0000FA 07FE                                 (7/53)49+         BR    14
+0000FC 58603610                000618       (1/11)51 VALNUM L   6,=F'-1'
+000100 585034B0                0004B8       (1/12)52   L   5,FULWORD
+000104 54503614                00061C       (1/13)53   N   5,=X'00FF0000'
+000108 88500010                             (1/14)54   SRL  5,16
+00010C 59503618                000620       (1/15)55   C   5,=F'64'
+000110 47803122                00012A       (1/16)56   BE   UNNUM
+000114 5B50361C                000624       (1/17)57   S   5,=F'240'
+000118 59503620                000628       (1/18)58   C  5,=F'0'
+00011C 47403192                00019A       (1/19)59   BL   NONUM
+000120 59503624                00062C       (1/20)60   C  5,=F'9'
+000124 47203192                00019A       (1/21)61   BH   NONUM
+000128 1865                                 (1/22)62   LR   6,5
+00012A 585034B0                0004B8       (1/24)63 UNNUM L   5,FULWORD
+00012E 54503628                000630       (1/25)64   N   5,=X'FF000000'
+000132 88500018                             (1/26)65   SRL  5,24
+000136 5B50361C                000624       (1/27)66   S   5,=F'240'
+00013A 59503620                000628       (1/28)67   C  5,=F'0'
+00013E 47403192                00019A       (1/29)68   BL   NONUM
+000142 59503624                00062C       (1/30)69   C  5,=F'9'
+000146 47203192                00019A       (1/31)70   BH   NONUM
+00014A 59603610                000618       (1/32)71   C   6,=F'-1'
+00014E 47803152                00015A       (1/33)72   BE   NOMULT
+000152 5C40362C                000634       (1/34)73   M   4,=F'10'
+000156 47F03156                00015E       (1/35)74   B   SUM
+00015A 41600000                             (1/36)75 NOMULT LA   6,0
+00015E 1A56                                 (1/37)76 SUM  AR   5,6
+000160 5950362C                000634       (1/38)77   C   5,=F'10'
+000164 47203192                00019A       (1/39)78   BH   NONUM
+000168 59503630                000638       (1/40)79   C   5,=F'3'
+00016C 47403192                00019A       (1/41)80   BL   NONUM
+000170 505034A4                0004AC       (1/42)81 SIGUE ST  5,NUMBIN
+000174                                      (1/43)82   WTO  'NUMERO INGRESADO VALIDO'
+000174 A7150010                000194       (6/49)83+         BRAS  1,*+(WTO#0007_EOT-*+1)/2*2
+000178 001B0000D5E4D4C5                     (6/50)84+         DC    AL2(WTO#0007_EOT-*,0),C'NUMERO INGRESADO VALIDO'
+000193                  00000193            (6/51)85+WTO#0007_EOT     EQU *
+000194 0A23                                 (6/52)86+         SVC   35
+000196 47F031BA                0001C2       (1/44)88   B   TODOOK
+00019A                                      (1/45)89 NONUM WTO  'NUMERO INGRESADO NO VALIDO'
+00019A                                      (6/35)90+NONUM    DS    0H
+00019A A7150011                0001BC       (6/49)91+         BRAS  1,*+(WTO#0008_EOT-*+1)/2*2
+00019E 001E0000D5E4D4C5                     (6/50)92+         DC    AL2(WTO#0008_EOT-*,0),C'NUMERO INGRESADO NO VALIDO'
+0001BC                  000001BC            (6/51)93+WTO#0008_EOT     EQU *
+0001BC 0A23                                 (6/52)94+         SVC   35
+0001BE 47F030C4                0000CC       (1/46)96   B   FIN
+0001C2 07FA                                 (1/47)97 TODOOK  BR   10
+0001C4                                      (1/49)98 CARGMAT WTO  'CARGANDO MATRIZ'
+0001C4                                      (6/35)99+CARGMAT  DS    0H
+0001C4 A715000C                0001DC      (6/49)100+         BRAS  1,*+(WTO#0009_EOT-*+1)/2*2
+0001C8 00130000C3C1D9C7                    (6/50)101+         DC    AL2(WTO#0009_EOT-*,0),C'CARGANDO MATRIZ'
+0001DB                  000001DB           (6/51)102+WTO#0009_EOT     EQU *
+0001DC 0A23                                (6/52)103+         SVC   35
+0001DE 585034A4                0004AC      (1/50)105         L    5,NUMBIN
+0001E2 416034D0                0004D8      (1/51)106         LA   6,MATRES
+0001E6 58703634                00063C      (1/52)107         L     7,=F'1'
+0001EA 50760000                            (1/53)108 CARGO   ST     7,0(6)
+0001EE 5A703634                00063C      (1/54)109         A     7,=F'1'
+0001F2 5A603638                000640      (1/55)110         A      6,=F'12'
+0001F6 465031E2                0001EA      (1/56)111         BCT     5,CARGO
+0001FA 585034A4                0004AC      (1/57)112         L       5,NUMBIN
+0001FE 416034D4                0004DC      (1/58)113         LA      6,MATRES+4
+000202 58703620                000628      (1/59)114         L       7,=F'0'
+000206 50760000                            (1/60)115 LLCEROU ST      7,0(6)
+00020A 5A603638                000640      (1/61)116         A      6,=F'12'
+00020E 465031FE                000206      (1/62)117         BCT     5,LLCEROU
+000212 585034A4                0004AC      (1/63)118         L       5,NUMBIN
+000216 416034D8                0004E0      (1/64)119         LA      6,MATRES+8
+00021A 50760000                            (1/65)120 LLCEROD ST      7,0(6)
+00021E 5A603638                000640      (1/66)121         A      6,=F'12'
+000222 46503212                00021A      (1/67)122         BCT     5,LLCEROD
+000226 07FA                                (1/68)123         BR      10
+000228 585034A4                0004AC      (1/70)124 MUESTRO L    5,NUMBIN
+00022C 41803488                000490      (1/71)125         LA   8,MATMOST
+000230 58760000                            (1/72)126 MOSTRAN L     7,0(6)
+000234 59703634                00063C      (1/73)127         C    7,=F'1'
+000238 478032AC                0002B4      (1/74)128         BE    MOSTRU
+00023C 5970363C                000644      (1/75)129         C    7,=F'2'
+000240 478032B6                0002BE      (1/76)130         BE   MOSTRDO
+000244 59703630                000638      (1/77)131         C       7,=F'3'
+000248 478032C0                0002C8      (1/78)132         BE      MOSTRT
+00024C 59703640                000648      (1/79)133         C     7,=F'4'
+000250 478032CA                0002D2      (1/80)134         BE     MOSTRCU
+000254 59703644                00064C      (1/81)135         C      7,=F'5'
+000258 478032D4                0002DC      (1/82)136         BE   MOSTRCI
+00025C 59703648                000650      (1/83)137         C    7,=F'6'
+000260 478032DE                0002E6      (1/84)138         BE   MOSTRSE
+000264 5970364C                000654      (1/85)139         C     7,=F'7'
+000268 478032E8                0002F0      (1/86)140         BE      MOSTRSI
+00026C 59703650                000658      (1/87)141         C      7,=F'8'
+000270 478032F2                0002FA      (1/88)142         BE     MOSTRO
+000274 59703624                00062C      (1/89)143         C      7,=F'9'
+000278 478032FC                000304      (1/90)144         BE      MOSTRN
+00027C 5970362C                000634      (1/91)145         C       7,=F'10'
+000280 47803306                00030E      (1/92)146         BE      MOSTRDI
+000284 59703620                000628      (1/93)147         C       7,=F'0'
+000288 4780329C                0002A4      (1/94)148         BE      ESCERO
+00028C                                     (1/95)149         WTO     'ALGO RARO'
+00028C A7150009                00029E      (6/49)150+         BRAS  1,*+(WTO#0010_EOT-*+1)/2*2
+000290 000D0000C1D3C7D6                    (6/50)151+         DC    AL2(WTO#0010_EOT-*,0),C'ALGO RARO'
+00029D                  0000029D           (6/51)152+WTO#0010_EOT     EQU *
+00029E 0A23                                (6/52)153+         SVC   35
+0002A0 47F03312                00031A      (1/96)155         B       RETU
+0002A4                                     (1/97)156 ESCERO  WTO     '_'
+0002A4                                     (6/35)157+ESCERO   DS    0H
+0002A4 A7150005                0002AE      (6/49)158+         BRAS  1,*+(WTO#0011_EOT-*+1)/2*2
+0002A8 000500006D                          (6/50)159+         DC    AL2(WTO#0011_EOT-*,0),C'_'
+0002AD                  000002AD           (6/51)160+WTO#0011_EOT     EQU *
+0002AE 0A23                                (6/52)161+         SVC   35
+0002B0 47F03312                00031A      (1/98)163         B       RETU
+0002B4 D21280003548            000550      (1/99)164 MOSTRU  MVC     0(19,8),IUNO
+0002BA 47F0330C                000314     (1/100)165         B       IMPR
+0002BE D2128000355B            000563     (1/101)166 MOSTRDO MVC     0(19,8),IDOS
+0002C4 47F0330C                000314     (1/102)167         B       IMPR
+0002C8 D2128000356E            000576     (1/103)168 MOSTRT  MVC     0(19,8),ITRES
+0002CE 47F0330C                000314     (1/104)169         B       IMPR
+0002D2 D21280003581            000589     (1/105)170 MOSTRCU MVC     0(19,8),ICUAT
+0002D8 47F0330C                000314     (1/106)171         B       IMPR
+0002DC D21280003594            00059C     (1/107)172 MOSTRCI MVC     0(19,8),ICINC
+0002E2 47F0330C                000314     (1/108)173         B       IMPR
+0002E6 D212800035A7            0005AF     (1/109)174 MOSTRSE MVC     0(19,8),ISEIS
+0002EC 47F0330C                000314     (1/110)175         B       IMPR
+0002F0 D212800035BA            0005C2     (1/111)176 MOSTRSI MVC     0(19,8),ISIET
+0002F6 47F0330C                000314     (1/112)177         B       IMPR
+0002FA D212800035CD            0005D5     (1/113)178 MOSTRO  MVC     0(19,8),IOCHO
+000300 47F0330C                000314     (1/114)179         B       IMPR
+000304 D212800035E0            0005E8     (1/115)180 MOSTRN  MVC     0(19,8),INUEVE
+00030A 47F0330C                000314     (1/116)181         B       IMPR
+00030E D212800035F3            0005FB     (1/117)182 MOSTRDI MVC     0(19,8),IDIEZ
+000314                                    (1/118)183 IMPR    WTO     MF=(E,WTOBLOCK)
+000314                                     (6/35)184+IMPR     DS    0H
+000314 41103484                00048C      (6/61)185+         LA    1,WTOBLOCK
+000318 0A23                                (6/66)186+         SVC   35
+00031A 4166000C                           (1/119)188 RETU    LA      6,12(6)
+00031E 46503228                000230     (1/120)189         BCT     5,MOSTRAN
+000322 07FB                               (1/121)190         BR      11
+000324                                    (1/123)191 REPRE   WTO     'TORRE 1'
+000324                                     (6/35)192+REPRE    DS    0H
+000324 A7150008                000334      (6/49)193+         BRAS  1,*+(WTO#0013_EOT-*+1)/2*2
+000328 000B0000E3D6D9D9                    (6/50)194+         DC    AL2(WTO#0013_EOT-*,0),C'TORRE 1'
+000333                  00000333           (6/51)195+WTO#0013_EOT     EQU *
+000334 0A23                                (6/52)196+         SVC   35
+000336 416034D0                0004D8     (1/124)198         LA      6,MATRES
+00033A 45B03220                000228     (1/125)199         BAL     11,MUESTRO
+00033E                                    (1/126)200         WTO     'TORRE 2'
+00033E A7150008                00034E      (6/49)201+         BRAS  1,*+(WTO#0014_EOT-*+1)/2*2
+000342 000B0000E3D6D9D9                    (6/50)202+         DC    AL2(WTO#0014_EOT-*,0),C'TORRE 2'
+00034D                  0000034D           (6/51)203+WTO#0014_EOT     EQU *
+00034E 0A23                                (6/52)204+         SVC   35
+000350 416034D4                0004DC     (1/127)206         LA      6,MATRES+4
+000354 45B03220                000228     (1/128)207         BAL     11,MUESTRO
+000358                                    (1/129)208         WTO     'TORRE 3'
+000358 A7150008                000368      (6/49)209+         BRAS  1,*+(WTO#0015_EOT-*+1)/2*2
+00035C 000B0000E3D6D9D9                    (6/50)210+         DC    AL2(WTO#0015_EOT-*,0),C'TORRE 3'
+000367                  00000367           (6/51)211+WTO#0015_EOT     EQU *
+000368 0A23                                (6/52)212+         SVC   35
+00036A 416034D8                0004E0     (1/130)214         LA      6,MATRES+8
+00036E 45B03220                000228     (1/131)215         BAL     11,MUESTRO
+000372 07FC                               (1/132)216         BR      12
+000374                                    (1/134)217 RESOLUC WTO  'RESOLVIENDO...'
+000374                                     (6/35)218+RESOLUC  DS    0H
+000374 A715000B                00038A      (6/49)219+         BRAS  1,*+(WTO#0016_EOT-*+1)/2*2
+000378 00120000D9C5E2D6                    (6/50)220+         DC    AL2(WTO#0016_EOT-*,0),C'RESOLVIENDO...'
+00038A                  0000038A           (6/51)221+WTO#0016_EOT     EQU *
+00038A 0A23                                (6/52)222+         SVC   35
+00038C 585034A4                0004AC     (1/135)224   L   5,NUMBIN
+000390 58903634                00063C     (1/136)225   L   9,=F'1'
+000394 5C80363C                000644     (1/137)226 ELEV M   8,=F'2'
+000398 4650338C                000394     (1/138)227   BCT  5,ELEV
+00039C 5B903634                00063C     (1/139)228   S   9,=F'1'
+0003A0 509034B4                0004BC     (1/140)229   ST   9,MOVIM
+0003A4 585034B8                0004C0     (1/142)230 CALCULO L      5,AUXCTAU
+0003A8 5B503634                00063C     (1/143)231         S       5,=F'1'
+0003AC 545034B8                0004C0     (1/144)232         N       5,AUXCTAU
+0003B0 41400000                           (1/145)233         LA      4,0
+0003B4 5D403630                000638     (1/146)234         D       4,=F'3'
+0003B8 504034C0                0004C8     (1/147)235         ST      4,MOVDESD
+0003BC 585034B8                0004C0     (1/149)236         L       5,AUXCTAU
+0003C0 5B503634                00063C     (1/150)237         S       5,=F'1'
+0003C4 565034B8                0004C0     (1/151)238         O       5,AUXCTAU
+0003C8 5A503634                00063C     (1/152)239         A       5,=F'1'
+0003CC 41400000                           (1/153)240         LA      4,0
+0003D0 5D403630                000638     (1/154)241         D       4,=F'3'
+0003D4 504034C4                0004CC     (1/155)242         ST      4,MOVHAST
+0003D8 585034B8                0004C0     (1/157)243         L       5,AUXCTAU
+0003DC 5A503634                00063C     (1/158)244         A       5,=F'1'
+0003E0 505034B8                0004C0     (1/159)245         ST      5,AUXCTAU
+0003E4                                    (1/161)246 MOVER   WTO     'MOVIENDO....'
+0003E4                                     (6/35)247+MOVER    DS    0H
+0003E4 A715000A                0003F8      (6/49)248+         BRAS  1,*+(WTO#0017_EOT-*+1)/2*2
+0003E8 00100000D4D6E5C9                    (6/50)249+         DC    AL2(WTO#0017_EOT-*,0),C'MOVIENDO....'
+0003F8                  000003F8           (6/51)250+WTO#0017_EOT     EQU *
+0003F8 0A23                                (6/52)251+         SVC   35
+0003FA 582034A4                0004AC     (1/162)253   L   2,NUMBIN
+0003FE 415034D0                0004D8     (1/163)254   LA   5,MATRES
+000402 587034C0                0004C8     (1/164)255   L   7,MOVDESD
+000406 5C603640                000648     (1/165)256   M   6,=F'4'
+00040A 1A57                               (1/166)257   AR   5,7
+00040C 58450000                           (1/167)258 BDESD  L   4,0(5)
+000410 59403620                000628     (1/168)259   C   4,=F'0'
+000414 47703418                000420     (1/169)260   BNE   STDESD
+000418 5A503638                000640     (1/170)261   A   5,=F'12'
+00041C 46203404                00040C     (1/171)262   BCT  2,BDESD
+000420 505034C8                0004D0     (1/172)263 STDESD  ST  5,PDESDE
+000424 582034A4                0004AC     (1/173)264   L   2,NUMBIN
+000428 415034D0                0004D8     (1/174)265   LA   5,MATRES
+00042C 587034C4                0004CC     (1/175)266   L   7,MOVHAST
+000430 5C603640                000648     (1/176)267   M   6,=F'4'
+000434 1A57                               (1/177)268   AR   5,7
+000436 58403634                00063C     (1/178)269   L   4,=F'1'
+00043A 504034BC                0004C4     (1/179)270   ST   4,AUXCTER
+00043E 58450000                           (1/180)271 BHAST L   4,0(5)
+000442 59403620                000628     (1/181)272   C   4,=F'0'
+000446 47703456                00045E     (1/182)273   BNE  STHAST
+00044A 5A503638                000640     (1/183)274   A   5,=F'12'
+00044E 587034BC                0004C4     (1/184)275   L   7,AUXCTER
+000452 5A703634                00063C     (1/185)276   A   7,=F'1'
+000456 507034BC                0004C4     (1/186)277   ST   7,AUXCTER
+00045A 46203436                00043E     (1/187)278   BCT  2,BHAST
+00045E 5B503638                000640     (1/188)279 STHAST  S   5,=F'12'
+000462 505034CC                0004D4     (1/189)280   ST   5,PHASTA
+000466 585034C8                0004D0     (1/190)281   L   5,PDESDE
+00046A 58650000                           (1/191)282   L   6,0(5)
+00046E 585034CC                0004D4     (1/192)283   L   5,PHASTA
+000472 50650000                           (1/193)284   ST   6,0(5)
+000476 585034C8                0004D0     (1/194)285   L   5,PDESDE
+00047A 58603620                000628     (1/195)286   L   6,=F'0'
+00047E 50650000                           (1/196)287   ST   6,0(5)
+000482 45C0331C                000324     (1/198)288   BAL  12,REPRE
+000486 4690339C                0003A4     (1/199)289         BCT     9,CALCULO
+00048A 07FA                               (1/200)290   BR   10
+00048C 0017                               (1/202)291 WTOBLOCK DC   H'23'
+00048E 0000                               (1/203)292          DC     H'0'
+000490                                    (1/204)293 MATMOST  DS     CL19
+0004A3                                    (1/206)294 NING DS   CL2
+0004A5                                    (1/207)295 NUMAUX  DS   CL2
+0004A7                                    (1/208)296 NUM  DS   PL2
+0004AC                                    (1/209)297 NUMBIN  DS      F
+0004B0                                    (1/211)298 PAUX    DS     D
+0004B8                                    (1/212)299 FULWORD DS   F
+0004BC                                    (1/214)300 MOVIM   DS  F
+0004C0 00000001                           (1/215)301 AUXCTAU DC      F'1'
+0004C4                                    (1/216)302 AUXCTER DS   F
+0004C8                                    (1/217)303 MOVDESD DS      F
+0004CC                                    (1/218)304 MOVHAST DS      F
+0004D0                                    (1/219)305 PDESDE  DS  F
+0004D4                                    (1/220)306 PHASTA DS   F
+0004D8                                    (1/222)307 MATRES  DS  30F
+000550 4040404040404040                   (1/224)308 IUNO DC   CL19'         X         '
+000563 4040404040404040                   (1/225)309 IDOS   DC   CL19'        X X        '
+000576 40404040404040E7                   (1/226)310 ITRES DC   CL19'       X X X       '
+000589 404040404040E740                   (1/227)311 ICUAT DC     CL19'      X X X X      '
+00059C 4040404040E740E7                   (1/228)312 ICINC  DC      CL19'     X X X X X     '
+0005AF 40404040E740E740                   (1/229)313 ISEIS  DC      CL19'    X X X X X X    '
+0005C2 404040E740E740E7                   (1/230)314 ISIET DC     CL19'   X X X X X X X   '
+0005D5 4040E740E740E740                   (1/231)315 IOCHO DC    CL19'  X X X X X X X X  '
+0005E8 40E740E740E740E7                   (1/232)316 INUEVE DC    CL19' X X X X X X X X X '
+0005FB E740E740E740E740                   (1/233)317 IDIEZ  DC    CL19'X X X X X X X X X X'
+000610 00000000                           (1/237)318 WAITECB DC   F'0'
+000614                                    (1/238)319   END 
+000618 FFFFFFFF         =F'-1'
+00061C 00FF0000         =X'00FF0000'
+000620 00000040         =F'64'
+000624 000000F0         =F'240'
+000628 00000000         =F'0'
+00062C 00000009         =F'9'
+000630 FF000000         =X'FF000000'
+000634 0000000A         =F'10'
+000638 00000003         =F'3'
+00063C 00000001         =F'1'
+000640 0000000C         =F'12'
+000644 00000002         =F'2'
+000648 00000004         =F'4'
+00064C 00000005         =F'5'
+000650 00000006         =F'6'
+000654 00000007         =F'7'
+000658 00000008         =F'8'
+
+Symbol Table Listing
+
+ SYM=AUXCTAU  LOC=000004C0 LEN=00000004 ESD=0001 TYPE=REL  XREF=301 230 232 236 238 
+  243 245 
+ SYM=AUXCTER  LOC=000004C4 LEN=00000004 ESD=0001 TYPE=REL  XREF=302 270 275 277 
+ SYM=BDESD    LOC=0000040C LEN=00000004 ESD=0001 TYPE=REL  XREF=258 262 
+ SYM=BHAST    LOC=0000043E LEN=00000004 ESD=0001 TYPE=REL  XREF=271 278 
+ SYM=CALCULO  LOC=000003A4 LEN=00000004 ESD=0001 TYPE=REL  XREF=230 289 
+ SYM=CARGMAT  LOC=000001C4 LEN=00000002 ESD=0001 TYPE=REL  XREF=99 34 
+ SYM=CARGO    LOC=000001EA LEN=00000004 ESD=0001 TYPE=REL  XREF=108 111 
+ SYM=ELEV     LOC=00000394 LEN=00000004 ESD=0001 TYPE=REL  XREF=226 227 
+ SYM=ESCERO   LOC=000002A4 LEN=00000002 ESD=0001 TYPE=REL  XREF=157 148 
+ SYM=FIN      LOC=000000CC LEN=00000002 ESD=0001 TYPE=REL  XREF=38 96 
+ SYM=FULWORD  LOC=000004B8 LEN=00000004 ESD=0001 TYPE=REL  XREF=299 23 24 52 63 
+ SYM=ICINC    LOC=0000059C LEN=00000013 ESD=0001 TYPE=REL  XREF=312 172 
+ SYM=ICUAT    LOC=00000589 LEN=00000013 ESD=0001 TYPE=REL  XREF=311 170 
+ SYM=IDIEZ    LOC=000005FB LEN=00000013 ESD=0001 TYPE=REL  XREF=317 182 
+ SYM=IDOS     LOC=00000563 LEN=00000013 ESD=0001 TYPE=REL  XREF=309 166 
+ SYM=IMPR     LOC=00000314 LEN=00000002 ESD=0001 TYPE=REL  XREF=184 165 167 169 171 
+  173 175 177 179 181 
+ SYM=INUEVE   LOC=000005E8 LEN=00000013 ESD=0001 TYPE=REL  XREF=316 180 
+ SYM=IOCHO    LOC=000005D5 LEN=00000013 ESD=0001 TYPE=REL  XREF=315 178 
+ SYM=ISEIS    LOC=000005AF LEN=00000013 ESD=0001 TYPE=REL  XREF=313 174 
+ SYM=ISIET    LOC=000005C2 LEN=00000013 ESD=0001 TYPE=REL  XREF=314 176 
+ SYM=ITRES    LOC=00000576 LEN=00000013 ESD=0001 TYPE=REL  XREF=310 168 
+ SYM=IUNO     LOC=00000550 LEN=00000013 ESD=0001 TYPE=REL  XREF=308 164 
+ SYM=LLCEROD  LOC=0000021A LEN=00000004 ESD=0001 TYPE=REL  XREF=120 122 
+ SYM=LLCEROU  LOC=00000206 LEN=00000004 ESD=0001 TYPE=REL  XREF=115 117 
+ SYM=MATMOST  LOC=00000490 LEN=00000013 ESD=0001 TYPE=REL  XREF=293 125 
+ SYM=MATRES   LOC=000004D8 LEN=00000004 ESD=0001 TYPE=REL  XREF=307 106 113 119 198 
+  206 214 254 265 
+ SYM=MOSTRAN  LOC=00000230 LEN=00000004 ESD=0001 TYPE=REL  XREF=126 189 
+ SYM=MOSTRCI  LOC=000002DC LEN=00000006 ESD=0001 TYPE=REL  XREF=172 136 
+ SYM=MOSTRCU  LOC=000002D2 LEN=00000006 ESD=0001 TYPE=REL  XREF=170 134 
+ SYM=MOSTRDI  LOC=0000030E LEN=00000006 ESD=0001 TYPE=REL  XREF=182 146 
+ SYM=MOSTRDO  LOC=000002BE LEN=00000006 ESD=0001 TYPE=REL  XREF=166 130 
+ SYM=MOSTRN   LOC=00000304 LEN=00000006 ESD=0001 TYPE=REL  XREF=180 144 
+ SYM=MOSTRO   LOC=000002FA LEN=00000006 ESD=0001 TYPE=REL  XREF=178 142 
+ SYM=MOSTRSE  LOC=000002E6 LEN=00000006 ESD=0001 TYPE=REL  XREF=174 138 
+ SYM=MOSTRSI  LOC=000002F0 LEN=00000006 ESD=0001 TYPE=REL  XREF=176 140 
+ SYM=MOSTRT   LOC=000002C8 LEN=00000006 ESD=0001 TYPE=REL  XREF=168 132 
+ SYM=MOSTRU   LOC=000002B4 LEN=00000006 ESD=0001 TYPE=REL  XREF=164 128 
+ SYM=MOVDESD  LOC=000004C8 LEN=00000004 ESD=0001 TYPE=REL  XREF=303 235 255 
+ SYM=MOVER    LOC=000003E4 LEN=00000002 ESD=0001 TYPE=REL  XREF=247 
+ SYM=MOVHAST  LOC=000004CC LEN=00000004 ESD=0001 TYPE=REL  XREF=304 242 266 
+ SYM=MOVIM    LOC=000004BC LEN=00000004 ESD=0001 TYPE=REL  XREF=300 229 
+ SYM=MUESTRO  LOC=00000228 LEN=00000004 ESD=0001 TYPE=REL  XREF=124 199 207 215 
+ SYM=NING     LOC=000004A3 LEN=00000002 ESD=0001 TYPE=REL  XREF=294 
+ SYM=NOMULT   LOC=0000015A LEN=00000004 ESD=0001 TYPE=REL  XREF=75 72 
+ SYM=NONUM    LOC=0000019A LEN=00000002 ESD=0001 TYPE=REL  XREF=90 59 61 68 70 78 
+  80 
+ SYM=NUM      LOC=000004A7 LEN=00000002 ESD=0001 TYPE=REL  XREF=296 
+ SYM=NUMAUX   LOC=000004A5 LEN=00000002 ESD=0001 TYPE=REL  XREF=295 
+ SYM=NUMBIN   LOC=000004AC LEN=00000004 ESD=0001 TYPE=REL  XREF=297 81 105 112 118 
+  124 224 253 264 
+ SYM=PAUX     LOC=000004B0 LEN=00000008 ESD=0001 TYPE=REL  XREF=298 
+ SYM=PDESDE   LOC=000004D0 LEN=00000004 ESD=0001 TYPE=REL  XREF=305 263 281 285 
+ SYM=PHASTA   LOC=000004D4 LEN=00000004 ESD=0001 TYPE=REL  XREF=306 280 283 
+ SYM=REPRE    LOC=00000324 LEN=00000002 ESD=0001 TYPE=REL  XREF=192 35 288 
+ SYM=RESOLUC  LOC=00000374 LEN=00000002 ESD=0001 TYPE=REL  XREF=218 36 
+ SYM=RETU     LOC=0000031A LEN=00000004 ESD=0001 TYPE=REL  XREF=188 155 163 
+ SYM=SIGUE    LOC=00000170 LEN=00000004 ESD=0001 TYPE=REL  XREF=81 
+ SYM=STDESD   LOC=00000420 LEN=00000004 ESD=0001 TYPE=REL  XREF=263 260 
+ SYM=STHAST   LOC=0000045E LEN=00000004 ESD=0001 TYPE=REL  XREF=279 273 
+ SYM=SUM      LOC=0000015E LEN=00000002 ESD=0001 TYPE=REL  XREF=76 74 
+ SYM=TODOOK   LOC=000001C2 LEN=00000002 ESD=0001 TYPE=REL  XREF=97 88 
+ SYM=TP       LOC=00000000 LEN=00000660 ESD=0001 TYPE=CST  XREF=2 15 
+ SYM=UNNUM    LOC=0000012A LEN=00000004 ESD=0001 TYPE=REL  XREF=63 56 
+ SYM=VALNUM   LOC=000000FC LEN=00000004 ESD=0001 TYPE=REL  XREF=51 33 
+ SYM=WAITECB  LOC=00000610 LEN=00000004 ESD=0001 TYPE=REL  XREF=318 25 30 
+ SYM=WTO#0005_EOT LOC=000000E7 LEN=00000001 ESD=0001 TYPE=REL  XREF=41 39 40 
+ SYM=WTO#0007_EOT LOC=00000193 LEN=00000001 ESD=0001 TYPE=REL  XREF=85 83 84 
+ SYM=WTO#0008_EOT LOC=000001BC LEN=00000001 ESD=0001 TYPE=REL  XREF=93 91 92 
+ SYM=WTO#0009_EOT LOC=000001DB LEN=00000001 ESD=0001 TYPE=REL  XREF=102 100 101 
+ SYM=WTO#0010_EOT LOC=0000029D LEN=00000001 ESD=0001 TYPE=REL  XREF=152 150 151 
+ SYM=WTO#0011_EOT LOC=000002AD LEN=00000001 ESD=0001 TYPE=REL  XREF=160 158 159 
+ SYM=WTO#0013_EOT LOC=00000333 LEN=00000001 ESD=0001 TYPE=REL  XREF=195 193 194 
+ SYM=WTO#0014_EOT LOC=0000034D LEN=00000001 ESD=0001 TYPE=REL  XREF=203 201 202 
+ SYM=WTO#0015_EOT LOC=00000367 LEN=00000001 ESD=0001 TYPE=REL  XREF=211 209 210 
+ SYM=WTO#0016_EOT LOC=0000038A LEN=00000001 ESD=0001 TYPE=REL  XREF=221 219 220 
+ SYM=WTO#0017_EOT LOC=000003F8 LEN=00000001 ESD=0001 TYPE=REL  XREF=250 248 249 
+ SYM=WTOBLOCK LOC=0000048C LEN=00000002 ESD=0001 TYPE=REL  XREF=291 185 
+ SYM=WTOR#0003_EOT LOC=000000A6 LEN=00000001 ESD=0001 TYPE=REL  XREF=22 19 20 
+
+Literal Table Listing
+
+ LIT=F'-1'    LOC=00000618 LEN=00000004 ESD=0001 POOL=0001 XREF=51 71 
+ LIT=F'0'     LOC=00000628 LEN=00000004 ESD=0001 POOL=0001 XREF=58 67 114 147 259 
+  272 286 
+ LIT=F'1'     LOC=0000063C LEN=00000004 ESD=0001 POOL=0001 XREF=107 109 127 225 228 
+  231 237 239 244 269 276 
+ LIT=F'10'    LOC=00000634 LEN=00000004 ESD=0001 POOL=0001 XREF=73 77 145 
+ LIT=F'12'    LOC=00000640 LEN=00000004 ESD=0001 POOL=0001 XREF=110 116 121 261 274 
+  279 
+ LIT=F'2'     LOC=00000644 LEN=00000004 ESD=0001 POOL=0001 XREF=129 226 
+ LIT=F'240'   LOC=00000624 LEN=00000004 ESD=0001 POOL=0001 XREF=57 66 
+ LIT=F'3'     LOC=00000638 LEN=00000004 ESD=0001 POOL=0001 XREF=79 131 234 241 
+ LIT=F'4'     LOC=00000648 LEN=00000004 ESD=0001 POOL=0001 XREF=133 256 267 
+ LIT=F'5'     LOC=0000064C LEN=00000004 ESD=0001 POOL=0001 XREF=135 
+ LIT=F'6'     LOC=00000650 LEN=00000004 ESD=0001 POOL=0001 XREF=137 
+ LIT=F'64'    LOC=00000620 LEN=00000004 ESD=0001 POOL=0001 XREF=55 
+ LIT=F'7'     LOC=00000654 LEN=00000004 ESD=0001 POOL=0001 XREF=139 
+ LIT=F'8'     LOC=00000658 LEN=00000004 ESD=0001 POOL=0001 XREF=141 
+ LIT=F'9'     LOC=0000062C LEN=00000004 ESD=0001 POOL=0001 XREF=60 69 143 
+ LIT=X'00FF0000' LOC=0000061C LEN=00000004 ESD=0001 POOL=0001 XREF=53 
+ LIT=X'FF000000' LOC=00000630 LEN=00000004 ESD=0001 POOL=0001 XREF=64 
+ 
+AZ390I total mnote warnings = 0
+AZ390I total mnote errors   = 0
+AZ390I max   mnote level    = 0
+AZ390I total mz390 errors   = 0
+AZ390I total az390 errors   = 0
+16:34:07 TP        MZ390 ENDED   RC= 0 SEC= 0 MEM(MB)= 69 IO=1343

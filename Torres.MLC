@@ -1,0 +1,238 @@
+TP	   	SUBENTRY BASES=(3)
+		WTOR	'INGRESE EL NUMERO DE DISCOS (ENTRE 3 Y 10)',FULWORD,,WAITECB
+		WAIT 	ECB=WAITECB
+		BAL 	10,VALNUM
+        BAL    	10,CARGMAT
+        BAL    	12,REPRE
+		BAL 	10,RESOLUC
+FIN	 	WTO 	'PROGRAMA FINALIZADO'
+		SUBEXIT
+		
+VALNUM	L 		6,=F'-1'
+		L 		5,FULWORD
+		N 		5,=X'00FF0000'
+		SRL 	5,16
+		C 		5,=F'64'
+		BE 		UNNUM
+		S 		5,=F'240'
+		C		5,=F'0'
+		BL 		NONUM
+		C		5,=F'9'
+		BH 		NONUM
+		LR 		6,5
+		
+UNNUM	L 		5,FULWORD
+		N 		5,=X'FF000000'
+		SRL 	5,24
+		S 		5,=F'240'
+		C		5,=F'0'
+		BL 		NONUM	
+		C		5,=F'9'
+		BH 		NONUM
+		C 		6,=F'-1'
+		BE 		NOMULT
+		M 		4,=F'10'
+		B 		SUM
+NOMULT	LA 		6,0
+SUM		AR 		5,6
+		C 		5,=F'10'
+		BH 		NONUM
+		C 		5,=F'3'
+		BL 		NONUM
+SIGUE	ST		5,NUMBIN
+		WTO 	'NUMERO INGRESADO VALIDO'
+		B 		TODOOK
+NONUM	WTO 	'NUMERO INGRESADO NO VALIDO'
+		B 		FIN
+TODOOK  BR 		10
+		
+CARGMAT	WTO		'CARGANDO MATRIZ'
+        L  		5,NUMBIN
+        LA  	6,MATRES
+        L    	7,=F'1'
+CARGO   ST    	7,0(6)
+        A    	7,=F'1'
+        A     	6,=F'12'
+        BCT    	5,CARGO
+        L      	5,NUMBIN
+        LA     	6,MATRES+4
+        L      	7,=F'0'
+LLCEROU ST     	7,0(6)
+        A     	6,=F'12'
+        BCT    	5,LLCEROU
+        L      	5,NUMBIN
+        LA     	6,MATRES+8
+LLCEROD ST     	7,0(6)
+        A     	6,=F'12'
+        BCT    	5,LLCEROD
+        BR     	10
+
+MUESTRO	L  		5,NUMBIN
+        LA  	8,MATMOST
+MOSTRAN L    	7,0(6)
+        C   	7,=F'1'
+        BE   	MOSTRU
+        C   	7,=F'2'
+        BE  	MOSTRDO
+        C      	7,=F'3'
+        BE     	MOSTRT
+        C    	7,=F'4'
+        BE    	MOSTRCU
+        C     	7,=F'5'
+        BE  	MOSTRCI
+        C   	7,=F'6'
+        BE  	MOSTRSE
+        C    	7,=F'7'
+        BE     	MOSTRSI
+        C     	7,=F'8'
+        BE    	MOSTRO
+        C     	7,=F'9'
+        BE     	MOSTRN
+        C       7,=F'10'
+        BE      MOSTRDI
+        C       7,=F'0'
+        BE      ESCERO
+        WTO     'ALGO RARO'
+        B       RETU
+ESCERO  WTO     '_'
+        B       RETU
+MOSTRU  MVC     0(19,8),IUNO
+        B       IMPR
+MOSTRDO MVC     0(19,8),IDOS
+        B       IMPR
+MOSTRT  MVC     0(19,8),ITRES
+        B       IMPR
+MOSTRCU MVC     0(19,8),ICUAT
+        B       IMPR
+MOSTRCI MVC     0(19,8),ICINC
+        B       IMPR
+MOSTRSE MVC     0(19,8),ISEIS
+        B       IMPR
+MOSTRSI MVC     0(19,8),ISIET
+        B       IMPR
+MOSTRO  MVC     0(19,8),IOCHO
+        B       IMPR
+MOSTRN  MVC     0(19,8),INUEVE
+        B       IMPR
+MOSTRDI MVC     0(19,8),IDIEZ
+IMPR    WTO     MF=(E,WTOBLOCK)
+RETU    LA      6,12(6)
+        BCT     5,MOSTRAN
+        BR      11
+
+REPRE   WTO     'TORRE 1'
+        LA      6,MATRES
+        BAL     11,MUESTRO
+        WTO     'TORRE 2'
+        LA      6,MATRES+4
+        BAL     11,MUESTRO
+        WTO     'TORRE 3'
+        LA      6,MATRES+8
+        BAL     11,MUESTRO
+        BR      12
+		
+RESOLUC WTO 	'RESOLVIENDO...'
+		L 		5,NUMBIN
+		L 		9,=F'1'
+ELEV	M 		8,=F'2' 	
+		BCT 	5,ELEV
+		S 		9,=F'1'
+		ST 		9,MOVIM
+
+CALCULO L     	5,AUXCTAU
+        S       5,=F'1'
+        N       5,AUXCTAU
+        LA      4,0
+        D       4,=F'3'
+        ST      4,MOVDESD
+
+        L       5,AUXCTAU
+        S       5,=F'1'
+        O       5,AUXCTAU
+        A       5,=F'1'
+        LA      4,0
+        D       4,=F'3'
+        ST      4,MOVHAST
+
+        L       5,AUXCTAU
+        A       5,=F'1'
+        ST      5,AUXCTAU
+		
+MOVER   WTO     'MOVIENDO....'
+		L 		2,NUMBIN
+		LA 		5,MATRES
+		L 		7,MOVDESD
+		M 		6,=F'4'
+		AR 		5,7
+BDESD 	L 		4,0(5)
+		C 		4,=F'0'
+		BNE	 	STDESD
+		A 		5,=F'12'
+		BCT 	2,BDESD
+STDESD 	ST		5,PDESDE
+		L 		2,NUMBIN
+		LA 		5,MATRES
+		L 		7,MOVHAST
+		M 		6,=F'4'
+		AR 		5,7
+		L 		4,=F'1'
+		ST 		4,AUXCTER
+BHAST	L 		4,0(5)
+		C 		4,=F'0'
+		BNE 	STHAST
+		A 		5,=F'12'
+		L 		7,AUXCTER
+		A 		7,=F'1'
+		ST 		7,AUXCTER
+		BCT 	2,BHAST
+STHAST 	S 		5,=F'12'
+		ST 		5,PHASTA
+		L 		5,PDESDE
+		L 		6,0(5)
+		L 		5,PHASTA
+		ST 		6,0(5)
+		L 		5,PDESDE
+		L 		6,=F'0'
+		ST 		6,0(5)
+		
+		BAL 	12,REPRE
+        BCT     9,CALCULO
+		BR 		10
+
+WTOBLOCK DC  	H'23'
+         DC     H'0'
+MATMOST  DS     CL19
+		
+NING	DS 		CL2
+NUMAUX 	DS 		CL2
+NUM 	DS 		PL2
+NUMBIN  DS     	F
+
+PAUX    DS	    D
+FULWORD DS  	F
+
+MOVIM   DS		F
+AUXCTAU DC      F'1'
+AUXCTER DS 		F
+MOVDESD DS      F
+MOVHAST DS      F
+PDESDE 	DS		F
+PHASTA	DS 		F
+
+MATRES  DS		30F
+
+IUNO	DC 		CL19'         X         '
+IDOS  	DC 		CL19'        X X        '
+ITRES	DC  	CL19'       X X X       '
+ICUAT	DC    	CL19'      X X X X      '
+ICINC 	DC     	CL19'     X X X X X     '
+ISEIS 	DC     	CL19'    X X X X X X    '
+ISIET	DC    	CL19'   X X X X X X X   '
+IOCHO	DC   	CL19'  X X X X X X X X  '
+INUEVE	DC   	CL19' X X X X X X X X X '
+IDIEZ 	DC   	CL19'X X X X X X X X X X'
+
+
+
+WAITECB	DC 		F'0'
+		END
